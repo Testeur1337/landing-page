@@ -1,0 +1,443 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Free CV & Cover Letter Pack</title>
+    <style>
+      :root {
+        color-scheme: dark;
+        --bg: #0b0f1a;
+        --bg-alt: #0f1625;
+        --card: #131b2e;
+        --card-soft: #16223a;
+        --border: rgba(255, 255, 255, 0.08);
+        --text: #f5f7ff;
+        --muted: #b4bfd9;
+        --accent: #4c7dff;
+        --accent-soft: rgba(76, 125, 255, 0.2);
+        --success: #2ed180;
+        --warning: #f5b74d;
+      }
+
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+
+      body {
+        font-family: "Inter", "Segoe UI", system-ui, -apple-system, sans-serif;
+        background: radial-gradient(circle at top left, #1b2240 0%, #0b0f1a 45%),
+          linear-gradient(160deg, #0b0f1a 0%, #0f1625 100%);
+        color: var(--text);
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+      }
+
+      a {
+        color: inherit;
+        text-decoration: none;
+      }
+
+      .topbar {
+        padding: 20px 24px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        border-bottom: 1px solid var(--border);
+        background: rgba(11, 15, 26, 0.6);
+        backdrop-filter: blur(8px);
+        position: sticky;
+        top: 0;
+        z-index: 5;
+      }
+
+      .brand {
+        font-weight: 700;
+        letter-spacing: 0.02em;
+      }
+
+      .container {
+        width: min(960px, 100%);
+        margin: 0 auto;
+        padding: 32px 20px 64px;
+        display: flex;
+        flex-direction: column;
+        gap: 24px;
+      }
+
+      .hero {
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+      }
+
+      .hero h1 {
+        font-size: clamp(2rem, 5vw, 3rem);
+        line-height: 1.2;
+      }
+
+      .hero p {
+        color: var(--muted);
+        line-height: 1.6;
+      }
+
+      .muted {
+        color: var(--muted);
+        line-height: 1.6;
+      }
+
+      .badges {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+        gap: 12px;
+      }
+
+      .badge {
+        background: var(--card-soft);
+        border: 1px solid var(--border);
+        padding: 12px 14px;
+        border-radius: 14px;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        font-size: 0.95rem;
+      }
+
+      .badge span {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 26px;
+        height: 26px;
+        border-radius: 50%;
+        background: var(--accent-soft);
+        color: var(--accent);
+        font-weight: 700;
+      }
+
+      .card {
+        background: var(--card);
+        border: 1px solid var(--border);
+        border-radius: 20px;
+        padding: 22px;
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+      }
+
+      .locked {
+        border: 1px dashed rgba(255, 255, 255, 0.18);
+        background: linear-gradient(135deg, rgba(16, 24, 42, 0.9), rgba(22, 34, 58, 0.9));
+      }
+
+      .locked-state {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        font-size: 0.9rem;
+        color: var(--warning);
+        background: rgba(245, 183, 77, 0.12);
+        padding: 6px 12px;
+        border-radius: 999px;
+      }
+
+      .download-row {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+      }
+
+      .download-actions {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+      }
+
+      .btn {
+        padding: 14px 18px;
+        border-radius: 12px;
+        border: none;
+        font-weight: 600;
+        font-size: 1rem;
+        cursor: pointer;
+        transition: transform 0.15s ease, box-shadow 0.15s ease, background 0.15s ease;
+      }
+
+      .btn-primary {
+        background: var(--accent);
+        color: #fff;
+        box-shadow: 0 12px 24px rgba(76, 125, 255, 0.25);
+      }
+
+      .btn-primary:hover {
+        transform: translateY(-1px);
+        box-shadow: 0 16px 28px rgba(76, 125, 255, 0.3);
+      }
+
+      .btn-secondary {
+        background: transparent;
+        color: var(--text);
+        border: 1px solid var(--border);
+      }
+
+      .btn-secondary:hover {
+        background: rgba(255, 255, 255, 0.05);
+      }
+
+      .btn-disabled {
+        background: rgba(255, 255, 255, 0.1);
+        color: rgba(255, 255, 255, 0.5);
+        cursor: not-allowed;
+        border: 1px solid transparent;
+      }
+
+      .steps {
+        display: grid;
+        gap: 10px;
+      }
+
+      .step {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        padding: 12px 14px;
+        border-radius: 12px;
+        background: rgba(255, 255, 255, 0.03);
+        border: 1px solid var(--border);
+      }
+
+      .step span {
+        width: 26px;
+        height: 26px;
+        border-radius: 50%;
+        background: rgba(46, 209, 128, 0.15);
+        color: var(--success);
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: 700;
+      }
+
+      .compliance {
+        font-size: 0.9rem;
+        color: var(--muted);
+        background: rgba(255, 255, 255, 0.04);
+        padding: 12px 14px;
+        border-radius: 12px;
+        border: 1px solid var(--border);
+      }
+
+      .modal {
+        position: fixed;
+        inset: 0;
+        background: rgba(6, 9, 16, 0.76);
+        display: none;
+        align-items: center;
+        justify-content: center;
+        padding: 24px;
+        z-index: 20;
+      }
+
+      .modal.open {
+        display: flex;
+      }
+
+      .modal-card {
+        width: min(560px, 100%);
+        background: var(--card);
+        border-radius: 20px;
+        border: 1px solid var(--border);
+        padding: 20px;
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+      }
+
+      .modal-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      .close-btn {
+        background: transparent;
+        border: none;
+        color: var(--muted);
+        font-size: 1.2rem;
+        cursor: pointer;
+      }
+
+      #lockerMount {
+        min-height: 180px;
+        border-radius: 12px;
+        border: 1px dashed rgba(255, 255, 255, 0.2);
+        background: rgba(255, 255, 255, 0.03);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: var(--muted);
+        text-align: center;
+        padding: 12px;
+      }
+
+      .download-enabled {
+        background: rgba(46, 209, 128, 0.12);
+        color: var(--success);
+        border: 1px solid rgba(46, 209, 128, 0.3);
+      }
+
+      @media (min-width: 720px) {
+        .download-row {
+          flex-direction: row;
+          align-items: center;
+          justify-content: space-between;
+        }
+
+        .download-actions {
+          flex-direction: row;
+          align-items: center;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <header class="topbar">
+      <div class="brand">TemplateHub</div>
+      <div class="locked-state">Locked download</div>
+    </header>
+
+    <main class="container">
+      <section class="hero">
+        <h1>Free CV &amp; Cover Letter Template Pack</h1>
+        <p>
+          Download a curated pack of professional CV and cover letter templates designed to
+          help you apply with confidence. Access is protected with a quick verification to
+          keep resources available for real applicants.
+        </p>
+      </section>
+
+      <section class="badges">
+        <div class="badge"><span>✓</span> Fast unlock</div>
+        <div class="badge"><span>✓</span> Instant access</div>
+      </section>
+
+      <section class="card locked" id="downloadCard">
+        <div class="download-row">
+          <div>
+            <h2>Locked Download</h2>
+            <p class="muted">Complete verification to unlock the template pack download.</p>
+          </div>
+          <button class="btn btn-disabled" id="downloadBtn" disabled>
+            Download Templates (ZIP)
+          </button>
+        </div>
+        <div class="download-actions">
+          <button class="btn btn-primary" id="unlockBtn">Unlock Download</button>
+          <button class="btn btn-secondary" id="howBtn">How it works</button>
+        </div>
+      </section>
+
+      <section class="card">
+        <h3>Why verification is required</h3>
+        <p>
+          To prevent automated abuse and keep these resources free, access requires a brief
+          verification. This helps ensure the templates stay available for genuine users.
+        </p>
+        <div class="compliance">
+          Verification is required before access. The download remains locked until the
+          content locker step is successfully completed.
+        </div>
+      </section>
+    </main>
+
+    <div class="modal" id="lockerModal" aria-hidden="true">
+      <div class="modal-card" role="dialog" aria-modal="true" aria-labelledby="lockerTitle">
+        <div class="modal-header">
+          <h3 id="lockerTitle">Complete Verification</h3>
+          <button class="close-btn" id="closeModal" aria-label="Close">✕</button>
+        </div>
+        <p class="muted">Follow the instructions below to unlock your download.</p>
+        <div id="lockerMount">
+          CPA content locker loads here.
+        </div>
+      </div>
+    </div>
+
+    <div class="modal" id="howModal" aria-hidden="true">
+      <div class="modal-card" role="dialog" aria-modal="true" aria-labelledby="howTitle">
+        <div class="modal-header">
+          <h3 id="howTitle">How it works</h3>
+          <button class="close-btn" id="closeHowModal" aria-label="Close">✕</button>
+        </div>
+        <p class="muted">Unlocking is quick and keeps the templates protected.</p>
+        <div class="steps">
+          <div class="step"><span>1</span> Click the unlock button to start verification.</div>
+          <div class="step"><span>2</span> Complete one quick verification step.</div>
+          <div class="step"><span>3</span> Your download unlocks instantly.</div>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      const unlockBtn = document.getElementById("unlockBtn");
+      const howBtn = document.getElementById("howBtn");
+      const lockerModal = document.getElementById("lockerModal");
+      const closeModal = document.getElementById("closeModal");
+      const howModal = document.getElementById("howModal");
+      const closeHowModal = document.getElementById("closeHowModal");
+      const downloadBtn = document.getElementById("downloadBtn");
+      const downloadCard = document.getElementById("downloadCard");
+
+      function openModal(modal) {
+        modal.classList.add("open");
+        modal.setAttribute("aria-hidden", "false");
+      }
+
+      function closeModalPanel(modal) {
+        modal.classList.remove("open");
+        modal.setAttribute("aria-hidden", "true");
+      }
+
+      function enableDownload() {
+        downloadBtn.disabled = false;
+        downloadBtn.classList.remove("btn-disabled");
+        downloadBtn.classList.add("btn-primary");
+        downloadCard.classList.add("download-enabled");
+      }
+
+      unlockBtn.addEventListener("click", () => {
+        openModal(lockerModal);
+      });
+
+      closeModal.addEventListener("click", () => {
+        closeModalPanel(lockerModal);
+      });
+
+      closeHowModal.addEventListener("click", () => {
+        closeModalPanel(howModal);
+      });
+
+      lockerModal.addEventListener("click", (event) => {
+        if (event.target === lockerModal) {
+          closeModalPanel(lockerModal);
+        }
+      });
+
+      howBtn.addEventListener("click", () => {
+        openModal(howModal);
+      });
+
+      howModal.addEventListener("click", (event) => {
+        if (event.target === howModal) {
+          closeModalPanel(howModal);
+        }
+      });
+
+      // CPA locker script should be included below.
+      // <script src="https://example-cpa-network.com/locker.js"></script>
+    </script>
+  </body>
+</html>
