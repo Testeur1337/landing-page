@@ -194,18 +194,7 @@
         border: 1px solid transparent;
       }
 
-      .how-it-works {
-        max-height: 0;
-        overflow: hidden;
-        transition: max-height 0.3s ease;
-      }
-
-      .how-it-works.open {
-        max-height: 240px;
-      }
-
       .steps {
-        margin-top: 12px;
         display: grid;
         gap: 10px;
       }
@@ -332,7 +321,6 @@
 
       <section class="badges">
         <div class="badge"><span>✓</span> Fast unlock</div>
-        <div class="badge"><span>✓</span> Mobile friendly</div>
         <div class="badge"><span>✓</span> Instant access</div>
       </section>
 
@@ -349,13 +337,6 @@
         <div class="download-actions">
           <button class="btn btn-primary" id="unlockBtn">Unlock Download</button>
           <button class="btn btn-secondary" id="howBtn">How it works</button>
-        </div>
-        <div class="how-it-works" id="howPanel">
-          <div class="steps">
-            <div class="step"><span>1</span> Click the unlock button to start verification.</div>
-            <div class="step"><span>2</span> Complete one quick verification step.</div>
-            <div class="step"><span>3</span> Your download unlocks instantly.</div>
-          </div>
         </div>
       </section>
 
@@ -385,23 +366,39 @@
       </div>
     </div>
 
+    <div class="modal" id="howModal" aria-hidden="true">
+      <div class="modal-card" role="dialog" aria-modal="true" aria-labelledby="howTitle">
+        <div class="modal-header">
+          <h3 id="howTitle">How it works</h3>
+          <button class="close-btn" id="closeHowModal" aria-label="Close">✕</button>
+        </div>
+        <p class="muted">Unlocking is quick and keeps the templates protected.</p>
+        <div class="steps">
+          <div class="step"><span>1</span> Click the unlock button to start verification.</div>
+          <div class="step"><span>2</span> Complete one quick verification step.</div>
+          <div class="step"><span>3</span> Your download unlocks instantly.</div>
+        </div>
+      </div>
+    </div>
+
     <script>
       const unlockBtn = document.getElementById("unlockBtn");
       const howBtn = document.getElementById("howBtn");
-      const howPanel = document.getElementById("howPanel");
       const lockerModal = document.getElementById("lockerModal");
       const closeModal = document.getElementById("closeModal");
+      const howModal = document.getElementById("howModal");
+      const closeHowModal = document.getElementById("closeHowModal");
       const downloadBtn = document.getElementById("downloadBtn");
       const downloadCard = document.getElementById("downloadCard");
 
-      function openModal() {
-        lockerModal.classList.add("open");
-        lockerModal.setAttribute("aria-hidden", "false");
+      function openModal(modal) {
+        modal.classList.add("open");
+        modal.setAttribute("aria-hidden", "false");
       }
 
-      function closeModalPanel() {
-        lockerModal.classList.remove("open");
-        lockerModal.setAttribute("aria-hidden", "true");
+      function closeModalPanel(modal) {
+        modal.classList.remove("open");
+        modal.setAttribute("aria-hidden", "true");
       }
 
       function enableDownload() {
@@ -412,22 +409,31 @@
       }
 
       unlockBtn.addEventListener("click", () => {
-        openModal();
+        openModal(lockerModal);
       });
 
       closeModal.addEventListener("click", () => {
-        closeModalPanel();
+        closeModalPanel(lockerModal);
+      });
+
+      closeHowModal.addEventListener("click", () => {
+        closeModalPanel(howModal);
       });
 
       lockerModal.addEventListener("click", (event) => {
         if (event.target === lockerModal) {
-          closeModalPanel();
+          closeModalPanel(lockerModal);
         }
       });
 
       howBtn.addEventListener("click", () => {
-        howPanel.classList.toggle("open");
-        howPanel.scrollIntoView({ behavior: "smooth", block: "center" });
+        openModal(howModal);
+      });
+
+      howModal.addEventListener("click", (event) => {
+        if (event.target === howModal) {
+          closeModalPanel(howModal);
+        }
       });
 
       // CPA locker script should be included below.
